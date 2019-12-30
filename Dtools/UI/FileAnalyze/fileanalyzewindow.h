@@ -6,6 +6,7 @@
 #include <QDragEnterEvent>
 //#include <QUrl>
 #include <QMimeData>
+#include "ElfAnalyze.h"
 
 namespace Ui {
 class FileAnalyzeWindow;
@@ -35,6 +36,12 @@ private:
     Ui::FileAnalyzeWindow *ui;
 private:
     QLabel *label;
+
+	//my space 
+private:
+	ElfAnalyze* m_elfAnalyze;
+	void debugTestFunc();
+
 };
 
 #endif // FILEANALYZEWINDOW_H

@@ -14,7 +14,7 @@
    <string>Dtools</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="buttonFileAnalyze">
     <property name="geometry">
      <rect>
       <x>0</x>
@@ -25,6 +25,19 @@
     </property>
     <property name="text">
      <string>文件解析</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="testButton">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>100</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>testButton</string>
     </property>
    </widget>
   </widget>
@@ -70,5 +83,42 @@
  <resources>
   <include location="Dtools.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>testButton</sender>
+   <signal>clicked()</signal>
+   <receiver>DtoolsClass</receiver>
+   <slot>mySlots()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>279</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>310</x>
+     <y>689</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>DtoolsClass</sender>
+   <signal>testClick()</signal>
+   <receiver>DtoolsClass</receiver>
+   <slot>mySlots()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>592</x>
+     <y>330</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>849</x>
+     <y>330</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <signal>testClick()</signal>
+  <slot>mySlots()</slot>
+ </slots>
 </ui>

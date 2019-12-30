@@ -34,12 +34,15 @@
     <ClCompile Include="UI\FileAnalyze\fileanalyzewindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FileAnalyze\elf\ElfAnalyze.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Dtools.h">
+    <QtMoc Include="UI\FileAnalyze\fileanalyzewindow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="UI\FileAnalyze\fileanalyzewindow.h">
+    <QtMoc Include="Dtools.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -58,5 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Dtools.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FileAnalyze\elf\elf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FileAnalyze\elf\ElfAnalyze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,16 +1,20 @@
 #include "fileanalyzewindow.h"
 #include "ui_fileanalyzewindow.h"
-
 #include <QFileDialog>
+#include <QDebug>
 
+
+
+#define TAG "FileAnalyzeWindow"
 
 FileAnalyzeWindow::FileAnalyzeWindow(QWidget *parent) :
         QDialog(parent),
         ui(new Ui::FileAnalyzeWindow)
 {
     ui->setupUi(this);
-    this->setAcceptDrops(true);
+    this->setAcceptDrops(true);		//接收拖放文件
     this->setWindowTitle("文件解析");
+	debugTestFunc();
 }
 
 FileAnalyzeWindow::~FileAnalyzeWindow()
@@ -31,9 +35,15 @@ void FileAnalyzeWindow::on_FileRepair_clicked()
 void FileAnalyzeWindow::dragEnterEvent(QDragEnterEvent *event)
 {
     //    setText(tr("<drop content>"));
-    setBackgroundRole(QPalette::Highlight);
-
-    event->acceptProposedAction();
+    //setBackgroundRole(QPalette::Highlight);
+	if (event->mimeData()->hasUrls()) {
+		event->acceptProposedAction();
+	}
+	else
+	{	
+		qDebug() << "FileAnalyzeWindow dragEnterEvent ignore!";
+		event->ignore();
+	}
     //    emit changed(event->mimeData());
 }
 
@@ -50,9 +60,51 @@ void FileAnalyzeWindow::dragLeaveEvent(QDragLeaveEvent *event)
 void FileAnalyzeWindow::dropEvent(QDropEvent *event)
 {
     //	const QMimeData *mimeData = event->mimeData();
-    QString name = event->mimeData()->urls().first().toString();
-    ui->textBrowser->setText(name);
+	qDebug() << "Hit fileAnalyzeWindow dropEvent";
+	
+	QList<QUrl> urls = event->mimeData()->urls();
+
+	if (urls.isEmpty()) {
+		qDebug() << TAG <<"url is nulling";
+		return;
+	}
+	// Fitter file type
+	// reserve!!
+
+	QString name = urls.first().toLocalFile();
+	//QString name = event->mimeData->text();
+
+
+	ui->textBrowser->setText(name);
+
+	qDebug() << TAG << "file name is " << name.toStdString().data();
+	QFile file(name);
+	if (!file.open(QIODevice::ReadWrite)) {
+		qDebug() << TAG << "open file failed";
+		return;
+	}
+	else {
+		qDebug() << TAG << "open file success ,file size:" << file.size();
+		uchar* fpr = file.map(0, file.size()); //Map files to memory.
+
+		m_elfAnalyze = new ElfAnalyze();
+		m_elfAnalyze->AnalyzeElf(fpr);
+	}
+
+
+
 }
+
+void FileAnalyzeWindow::debugTestFunc()
+{
+	QFile file("F:\\D-Tools\\Dtools\\libdvm.so");
+	file.open(QIODevice::ReadWrite);
+	uchar* fpr = file.map(0, file.size()); //Map files to memory.
+
+	m_elfAnalyze = new ElfAnalyze();
+	m_elfAnalyze->AnalyzeElf(fpr);
+}
+
 
 
 void FileAnalyzeWindow::on_label_windowIconChanged(const QIcon &icon)
@@ -61,8 +113,8 @@ void FileAnalyzeWindow::on_label_windowIconChanged(const QIcon &icon)
 }
 
 void FileAnalyzeWindow::on_select_file_clicked()
-{
-    QString lastPath="C:\Englishpath";
-    QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"), lastPath);
-    ui->textBrowser->setText(fileName);
+{/*
+	QString lastPath="C:\Englishpath";
+	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"), lastPath);
+	ui->textBrowser->setText(fileName);*/
 }
