@@ -113,6 +113,7 @@
     <QtMoc Include="UI\FileAnalyze\fileanalyzewindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FileAnalyze\elf\dzelf.h" />
     <ClInclude Include="FileAnalyze\elf\ElfAnalyze.h" />
     <ClInclude Include="FileAnalyze\elf\elf.h" />
     <ClInclude Include="QtDzSdk.h" />

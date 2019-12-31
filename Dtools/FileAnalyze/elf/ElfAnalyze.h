@@ -1,20 +1,32 @@
 #pragma once
-#include "elf.h"
+#include "dzelf.h"
+#define  TAG "ElfAnalyze"
+#define ElfAnalyzeLogDbg(x,...) qDebug()<<TAG<<x<<__VA_ARGS__;
+#define ElfAnalyzeLogWar(x,...) qWarning()<<TAG<<x<<__VA_ARGS__;
+#define ElfAnalyzeLogCrt(x,...) qCritical()<<TAG<<x<<__VA_ARGS__;
+#define ElfAnalyzeLogFat(x,...) qFatal()<<TAG<<x<<__VA_ARGS__;
+
+#define NOT_VALID_ELF_FILE_BY_HEADER "not a valid elf file! cause by "
+
+
 class ElfAnalyze
 {
 public:
 	void AnalyzeElf(unsigned char* elfFile);
 
 private:
-	bool m_is32File;
+	//bool m_is32File;
 
-	//32bit
+
 private:
-	Elf32_Ehdr* m_elf32Header;
-	
-	//64bit
+	Elf_Ehdr* m_elfHeader;
+	uint32_t m_phdrNum;
+	Elf_Addr m_phdrSize;
+
 private:
-	Elf64_Ehdr* m_elf64Header;
+	void SetElfFileBit(unsigned char* elfFile);
+	bool VerifyElfHeader();
+	bool ReadProgramHeader();
 };
 
 

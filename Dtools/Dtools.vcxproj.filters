@@ -75,5 +75,8 @@
     <ClInclude Include="QtDzSdk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="FileAnalyze\elf\dzelf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
