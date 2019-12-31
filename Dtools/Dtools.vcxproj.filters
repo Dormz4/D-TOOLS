@@ -37,6 +37,9 @@
     <ClCompile Include="FileAnalyze\elf\ElfAnalyze.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="QtDzSdk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="UI\FileAnalyze\fileanalyzewindow.h">
@@ -67,6 +70,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="FileAnalyze\elf\ElfAnalyze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QtDzSdk.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,7 +2,7 @@
 #include "ui_fileanalyzewindow.h"
 #include <QFileDialog>
 #include <QDebug>
-
+#include "../../QtDzSdk.h"
 
 
 #define TAG "FileAnalyzeWindow"
@@ -97,8 +97,13 @@ void FileAnalyzeWindow::dropEvent(QDropEvent *event)
 
 void FileAnalyzeWindow::debugTestFunc()
 {
+	QtDzSdk::printObjName(this);
 	QFile file("F:\\D-Tools\\Dtools\\libdvm.so");
-	file.open(QIODevice::ReadWrite);
+	if (!file.open(QIODevice::ReadWrite)) {
+		qDebug() << TAG << "open file failed";
+		system("pause");
+		exit(-1);
+	}
 	uchar* fpr = file.map(0, file.size()); //Map files to memory.
 
 	m_elfAnalyze = new ElfAnalyze();
