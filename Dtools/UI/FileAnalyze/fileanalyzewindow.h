@@ -7,7 +7,7 @@
 //#include <QUrl>
 #include <QMimeData>
 #include "ElfAnalyze.h"
-
+#include <QtWidgets\qtabwidget.h>
 namespace Ui {
 class FileAnalyzeWindow;
 }
@@ -34,6 +34,7 @@ protected:
     void dropEvent(QDropEvent *event) override;
 private:
     Ui::FileAnalyzeWindow *ui;
+	QTabWidget* m_fileAnalyzeShowPlace;
 private:
     QLabel *label;
 

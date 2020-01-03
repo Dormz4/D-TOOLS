@@ -5,6 +5,7 @@
 #include "../../QtDzSdk.h"
 
 
+
 #define TAG "FileAnalyzeWindow"
 
 FileAnalyzeWindow::FileAnalyzeWindow(QWidget *parent) :
@@ -14,6 +15,23 @@ FileAnalyzeWindow::FileAnalyzeWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setAcceptDrops(true);		//接收拖放文件
     this->setWindowTitle("文件解析");
+
+
+	//enum the widget and initialize them
+	QObjectList childrenList = children();
+	for each (QObject *obj in childrenList)
+	{
+		if (obj->metaObject()->className() == QStringLiteral("QTabWidget")) {
+			qDebug() << "命中" << obj->metaObject()->className();
+			QLabel* label = new QLabel();
+			m_fileAnalyzeShowPlace = (QTabWidget*)obj;
+			//((qtabwidget*)obj)->addtab(label, r"(haha)");
+		}
+	}
+	//QString tab2Title = "啊啊啊啊啊";
+	m_fileAnalyzeShowPlace->setTabText(1, QStringLiteral("啊"));
+	//m_fileAnalyzeShowPlace->setTabWhatsThis(1, tab2Title);
+
 	debugTestFunc();
 }
 
