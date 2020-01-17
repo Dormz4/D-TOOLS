@@ -4,8 +4,6 @@
 #include <QDebug>
 #include "../../QtDzSdk.h"
 
-
-
 #define TAG "FileAnalyzeWindow"
 
 FileAnalyzeWindow::FileAnalyzeWindow(QWidget *parent) :
@@ -28,8 +26,9 @@ FileAnalyzeWindow::FileAnalyzeWindow(QWidget *parent) :
 			//((qtabwidget*)obj)->addtab(label, r"(haha)");
 		}
 	}
-	//QString tab2Title = "啊啊啊啊啊";
-	m_fileAnalyzeShowPlace->setTabText(1, QStringLiteral("啊"));
+	//qstring tab2title = "啊啊";
+	//qdebug() << tab2title;
+	//m_fileAnalyzeShowPlace->setTabText(1, "啊啊啊啊啊");
 	//m_fileAnalyzeShowPlace->setTabWhatsThis(1, tab2Title);
 
 	debugTestFunc();
@@ -38,6 +37,11 @@ FileAnalyzeWindow::FileAnalyzeWindow(QWidget *parent) :
 FileAnalyzeWindow::~FileAnalyzeWindow()
 {
     delete ui;
+}
+
+Ui::FileAnalyzeWindow* FileAnalyzeWindow::getFileAnalyzeWindow()
+{
+	return this->ui;
 }
 
 
@@ -107,16 +111,18 @@ void FileAnalyzeWindow::dropEvent(QDropEvent *event)
 
 		m_elfAnalyze = new ElfAnalyze();
 		m_elfAnalyze->AnalyzeElf(fpr);
+
 	}
 
 
 
 }
 
+//测试用的函数
 void FileAnalyzeWindow::debugTestFunc()
 {
 	QtDzSdk::printObjName(this);
-	QFile file("F:\\D-Tools\\Dtools\\libdvm.so");
+	QFile file("D:\\D-Tools\\Dtools\\libdvm.so");
 	if (!file.open(QIODevice::ReadWrite)) {
 		qDebug() << TAG << "open file failed";
 		system("pause");
@@ -124,7 +130,9 @@ void FileAnalyzeWindow::debugTestFunc()
 	}
 	uchar* fpr = file.map(0, file.size()); //Map files to memory.
 
-	m_elfAnalyze = new ElfAnalyze();
+	m_elfAnalyze = new ElfAnalyze(fpr);
+	//信号绑定
+	auto aa = QObject::connect(m_elfAnalyze, SIGNAL(change_txt_status(QString)), this, SLOT(on_txt_status_change(QString)));
 	m_elfAnalyze->AnalyzeElf(fpr);
 }
 
@@ -141,3 +149,10 @@ void FileAnalyzeWindow::on_select_file_clicked()
 	QString fileName = QFileDialog::getOpenFileName(this, tr("打开文件"), lastPath);
 	ui->textBrowser->setText(fileName);*/
 }
+
+void FileAnalyzeWindow::on_txt_status_change(QString txt)
+{
+	ui->txtStatus->setText(txt);
+}
+
+

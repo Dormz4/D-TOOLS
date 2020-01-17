@@ -14,6 +14,8 @@
 //#define FLOGI(fmt, ...) printf(FLFMT fmt FNLINE, __FUNCTION__, __LINE__, ##__VA_ARGS__)
 //#define FLOGV(fmt, ...) printf(FLFMT fmt FNLINE, __FUNCTION__, __LINE__, ##__VA_ARGS__)
 
+
+//用来判断是哪个系统和版本 进行确定elf的指针的位数
 #ifdef Q_OS_WIN32
 typedef Elf32_Ehdr Elf_Ehdr;
 typedef Elf32_Phdr Elf_Phdr;

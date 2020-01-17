@@ -19,13 +19,13 @@ class FileAnalyzeWindow : public QDialog
 public:
     explicit FileAnalyzeWindow(QWidget *parent = nullptr);
     ~FileAnalyzeWindow();
+	Ui::FileAnalyzeWindow* getFileAnalyzeWindow();
 
 private slots:
     void on_FileRepair_clicked();
-
     void on_label_windowIconChanged(const QIcon &icon);
-
     void on_select_file_clicked();
+	void on_txt_status_change(QString txt);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;

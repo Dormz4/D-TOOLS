@@ -114,7 +114,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileAnalyze\elf\dzelf.h" />
-    <ClInclude Include="FileAnalyze\elf\ElfAnalyze.h" />
+    <QtMoc Include="FileAnalyze\elf\ElfAnalyze.h" />
     <ClInclude Include="FileAnalyze\elf\elf.h" />
     <ClInclude Include="QtDzSdk.h" />
   </ItemGroup>
